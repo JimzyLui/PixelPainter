@@ -6,24 +6,27 @@
   display: flex;
 }
 #leftPanel {
-  border: 1px solid orange;
+  /* border: 1px solid orange; */
   margin: 10px auto;
   display: flex;
   flex-flow: column wrap;
-  align-content: center;
+  /* justify-content: space-between; */
+  justify-content: flex-start;
+  padding: 5px;
+  align-items: center;
 }
 #canvas {
   display: flex;
   flex-flow: column wrap;
-  border: 2px solid red;
+  border: 2px solid black;
   /* width: 300px; */
   /* height: 300px; */
   margin: auto;
   background-color: white;
 }
 .box {
-  width: 50px;
-  height: 50px;
+  width: 10px;
+  height: 10px;
   border: 1px solid lightgray;
   /* background-color: white; */
   justify-content: flex-start;
@@ -34,6 +37,7 @@
 .smBox {
   width: 30px;
   height: 30px;
+  /* border: 1px solid black; */
 }
 
 .row {
@@ -46,4 +50,30 @@ button {
   width: 50px;
   height: 30px;
   justify-items: center;
+  text-align: center;
+  margin: 5px;
+  border-radius: 0.6em;
+}
+#colorBoxPanel {
+  /* border: 1px solid black; */
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-self: stretch;
+  margin: 5px;
+}
+#paintBoxRow {
+  /* border: 1px solid red; */
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  align-self: stretch;
+  margin: 5px;
+}
+#paintBox {
+  background-color: black;
+  border: 1px solid black;
+}
+#palette {
+  border: 1px solid black;
 }
