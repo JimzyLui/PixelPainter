@@ -1,7 +1,12 @@
 const pixelPainter = ((iWidth, iHeight) => {
+  const arrMemory = [];
   const pp = document.getElementById("pixelPainter");
   const leftPanel = document.createElement("div"); // contains colorPalette and buttons
   leftPanel.id = "leftPanel";
+
+  const rightPanel = document.createElement("div"); // contains the grid and save/load buttons
+  rightPanel.id = "rightPanel";
+
   let bPortraitOrientation = false;
   if (iWidth > iHeight) {
     bPortraitOrientation = false;
@@ -123,7 +128,21 @@ const pixelPainter = ((iWidth, iHeight) => {
     //   return obj;
     // });
   }
-  const canvas = createGrid(iWidth, iHeight, "box canvas", "canvas");
+  function saveGrid() {
+    const snapshot = {
+      timestamp: Date.now(),
+      canvas: canvas
+    };
+    arrMemory.push(snapshot);
+    btnLoadLastGrid.disabled = false;
+  }
+  function loadGrid() {
+    if (arrMemory.length > 0) {
+      const snapshot = arrMemory.pop();
+      canvas = snapshot;
+    }
+  }
+  let canvas = createGrid(iWidth, iHeight, "box canvas", "canvas");
   const colorPalette = createGrid(5, 5, "box paletteBox", "palette");
   const paletteLabel = document.createElement("div");
   paletteLabel.innerHTML = "Color Palette";
@@ -155,6 +174,21 @@ const pixelPainter = ((iWidth, iHeight) => {
   colorBoxPanel.appendChild(colorBoxLabel);
   colorBoxPanel.appendChild(paintBoxRow);
   leftPanel.appendChild(colorBoxPanel);
+  const btnSave = document.createElement("button");
+  const btnLoadLastGrid = document.createElement("button");
+  btnSave.id = "btnSave";
+  btnSave.innerHTML = "Save Image";
+  btnSave.addEventListener("click", saveGrid);
+  btnLoadLastGrid.id = "btnLoadLastGrid";
+  btnLoadLastGrid.innerHTML = "Load Saved Image";
+  btnLoadLastGrid.disabled = true;
+  btnLoadLastGrid.addEventListener("click", loadGrid);
+  rightPanel.appendChild(canvas);
+  const savePanel = document.createElement("div");
+  savePanel.id = "savePanel";
+  savePanel.appendChild(btnSave);
+  savePanel.appendChild(btnLoadLastGrid);
+  rightPanel.appendChild(savePanel);
   pp.appendChild(leftPanel);
-  pp.appendChild(canvas);
+  pp.appendChild(rightPanel);
 })(35, 20);

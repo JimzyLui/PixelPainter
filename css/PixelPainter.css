@@ -17,6 +17,20 @@ h1 {
   padding: 5px;
   align-items: center;
 }
+#rightPanel {
+  border: 1px solid orange;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: flex-start;
+  padding: 5px;
+  align-items: center;
+}
+#savePanel {
+  border: 1px solid orange;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+}
 #canvas {
   display: flex;
   flex-flow: column wrap;
