@@ -1,12 +1,14 @@
 * {
   box-sizing: border-box;
 }
-
+h1 {
+  text-align: center;
+}
 #pixelPainter {
   display: flex;
 }
 #leftPanel {
-  /* border: 1px solid orange; */
+  border: 1px solid orange;
   margin: 10px auto;
   display: flex;
   flex-flow: column wrap;
@@ -23,20 +25,21 @@
   /* height: 300px; */
   margin: auto;
   background-color: white;
+  /* border: 2px solid blue; */
 }
 .box {
-  width: 10px;
-  height: 10px;
-  border: 1px solid lightgray;
+  width: 9px;
+  height: 9px;
+  border: thin solid lightgray;
   /* background-color: white; */
   justify-content: flex-start;
   align-content: flex-start;
   flex: 0 2 auto;
 }
 
-.smBox {
-  width: 30px;
-  height: 30px;
+.paletteBox {
+  width: 20px;
+  height: 20px;
   /* border: 1px solid black; */
 }
 
@@ -63,17 +66,122 @@ button {
   margin: 5px;
 }
 #paintBoxRow {
-  /* border: 1px solid red; */
+  border: 1px solid red;
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-around;
   align-self: stretch;
+  align-items: center;
   margin: 5px;
 }
 #paintBox {
   background-color: black;
   border: 1px solid black;
 }
+#paletteLabel {
+  font-weight: bold;
+}
 #palette {
   border: 1px solid black;
+}
+
+/* @media screen and (min-width: 600px) {
+  .box {
+    width: 20px;
+    height: 20px;
+  }
+} */
+
+/* pad */
+@media screen and (max-width: 600px) {
+  h1 {
+    font-size: 85%;
+  }
+  #leftPane {
+    margin: 0;
+    padding: 1px 1px;
+  }
+  .box {
+    width: 7px;
+    height: 7px;
+    border-width: thin;
+  }
+  .paletteBox {
+    width: 10px;
+    height: 10px;
+    /* border: 1px solid black; */
+  }
+  #palette {
+    margin: 0.2em;
+  }
+  button {
+    width: 30px;
+    height: 20px;
+    font-size: 0.3em;
+    margin: 0.2em;
+    padding: 0.2em;
+  }
+  #colorBoxLabel {
+    white-space: nowrap;
+    font-size: 0.5em;
+    margin-top: 0.5em;
+    margin-bottom: 0.2em;
+    border: thin solid black;
+  }
+  #paintBoxRow {
+    margin: 2px;
+  }
+  #paintBoxLabel {
+    font-size: 0.4em;
+  }
+  #paletteLabel {
+    font-size: 0.5em;
+  }
+}
+
+/* mobile */
+@media screen and (max-width: 400px) {
+  h1 {
+    font-size: 80%;
+  }
+  #leftPane {
+    margin: 0;
+    padding: 1px 1px;
+  }
+  .box {
+    width: 5px;
+    height: 5px;
+    border-width: thin;
+  }
+  .paletteBox {
+    width: 7px;
+    height: 7px;
+    /* border: 1px solid black; */
+  }
+  #palette {
+    margin: 0.2em;
+  }
+  button {
+    width: 30px;
+    height: 15px;
+    font-size: 0.3em;
+    margin: 0.2em;
+    padding: 0.2em;
+  }
+  #colorBoxLabel {
+    white-space: nowrap;
+    font-size: 0.5em;
+    margin-top: 0.5em;
+    margin-bottom: 0.2em;
+    border: thin solid black;
+  }
+  #paintBoxRow {
+    margin: 2px;
+  }
+  #paintBoxLabel {
+    font-size: 0.4em;
+  }
+  #paletteLabel {
+    font-size: 0.5em;
+  }
 }

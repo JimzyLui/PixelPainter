@@ -2,6 +2,12 @@ const pixelPainter = ((iWidth, iHeight) => {
   const pp = document.getElementById("pixelPainter");
   const leftPanel = document.createElement("div"); // contains colorPalette and buttons
   leftPanel.id = "leftPanel";
+  let bPortraitOrientation = false;
+  if (iWidth > iHeight) {
+    bPortraitOrientation = false;
+  } else {
+    bPortraitOrientation = true;
+  }
   let paintColor = "black";
   const arrColors = [
     "red",
@@ -98,6 +104,9 @@ const pixelPainter = ((iWidth, iHeight) => {
   function toggleMouseClick(e) {
     bMouseClicked = !bMouseClicked;
   }
+  function toggleOrientation(e) {
+    bPortraitOrientation = !bPortraitOrientation;
+  }
   function erase() {
     paintColor = "white";
     paintBox.style.backgroundColor = paintColor;
@@ -115,7 +124,11 @@ const pixelPainter = ((iWidth, iHeight) => {
     // });
   }
   const canvas = createGrid(iWidth, iHeight, "box canvas", "canvas");
-  const colorPalette = createGrid(5, 5, "box smBox", "palette");
+  const colorPalette = createGrid(5, 5, "box paletteBox", "palette");
+  const paletteLabel = document.createElement("div");
+  paletteLabel.innerHTML = "Color Palette";
+  paletteLabel.id = "paletteLabel";
+  leftPanel.appendChild(paletteLabel);
   leftPanel.appendChild(colorPalette);
   const btnErase = document.createElement("button");
   btnErase.innerHTML = "Erase";
@@ -127,11 +140,13 @@ const pixelPainter = ((iWidth, iHeight) => {
   leftPanel.appendChild(btnClear);
   const colorBoxPanel = document.createElement("div");
   const colorBoxLabel = document.createElement("div");
+  colorBoxLabel.id = "colorBoxLabel";
   colorBoxLabel.innerHTML = "Paint Color:";
   const paintBoxRow = document.createElement("div");
   paintBoxRow.id = "paintBoxRow";
-  const paintBox = createBox("box smBox");
+  const paintBox = createBox("box paletteBox");
   const paintBoxLabel = document.createElement("label");
+  paintBoxLabel.id = "paintBoxLabel";
   colorBoxPanel.id = "colorBoxPanel";
   paintBoxLabel.innerHTML = paintColor;
   paintBox.id = "paintBox";
@@ -142,4 +157,4 @@ const pixelPainter = ((iWidth, iHeight) => {
   leftPanel.appendChild(colorBoxPanel);
   pp.appendChild(leftPanel);
   pp.appendChild(canvas);
-})(80, 40);
+})(35, 20);
