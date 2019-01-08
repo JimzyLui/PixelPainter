@@ -1,6 +1,11 @@
 const pixelPainter = ((iWidth, iHeight) => {
   const arrMemory = [];
   const pp = document.getElementById("pixelPainter");
+
+  const topOuterPanel = document.createElement("div");
+  topOuterPanel.id = "topOuterPanel";
+  const bottomOuterPanel = document.createElement("div");
+  bottomOuterPanel.id = "bottomOuterPanel";
   const leftPanel = document.createElement("div"); // contains colorPalette and buttons
   leftPanel.id = "leftPanel";
 
@@ -47,32 +52,75 @@ const pixelPainter = ((iWidth, iHeight) => {
 
   let bMouseClicked = false;
   let bMouseReleased = true;
-
-  function createGrid(iColumns, iRows, boxClass, id) {
+  function cloneGrid(oldGrid) {
+    // const id = grid.id;
+    const id = oldGrid.id + bottomOuterPanel.children.length;
+    const gridClass = oldGrid.dataset["gridClass"];
+    const boxClass = oldGrid.dataset["boxClass"];
+    // console.log("boxClass:", boxClass);
+    const iColumns = oldGrid.dataset["iColumns"];
+    const iRows = oldGrid.dataset["iRows"];
+    const newGrid = createGrid(iColumns, iRows, gridClass, boxClass, id);
+    // console.log("newGrid:", newGrid);
+    leftPanel.appendChild(newGrid);
+    let arrOldGrid = oldGrid.children;
+    let arrNewGrid = newGrid.children;
+    for (let row = 0; row < arrOldGrid.length; row++) {
+      let arrNewGridRow = arrNewGrid[row];
+      let arrOldGridRow = arrOldGrid[row];
+      arrNewGridRow.backgroundColor = arrOldGridRow.backgroundColor;
+      arrNewGridRow.id = arrOldGridRow.id;
+      arrNewGridRow.classList = arrOldGridRow.classList;
+      let arrOldGridCells = arrOldGridRow.children;
+      let arrNewGridCells = arrNewGridRow.children;
+      for (let col = 0; col < arrOldGridCells.length; col++) {
+        let oldCell = arrOldGridCells[col];
+        let newCell = arrNewGridCells[col];
+        newCell.style.backgroundColor = oldCell.style.backgroundColor;
+        newCell.id = oldCell.id;
+        newCell.classList = oldCell.classList;
+      }
+    }
+    return newGrid;
+  }
+  function createGrid(
+    iColumns,
+    iRows,
+    gridClass,
+    boxClass,
+    id,
+    bAddEventListeners = false
+  ) {
     const grid = document.createElement("div"); // Box width and height
-    grid.className = "container";
+    grid.classList = "container " + gridClass;
     grid.id = id;
+    grid.dataset["gridClass"] = gridClass;
+    grid.dataset["boxClass"] = boxClass;
+    grid.dataset["iColumns"] = iColumns;
+    grid.dataset["iRows"] = iRows;
     let iBoxCounter = 0;
     // create row
     for (let y = 0; y < iRows; y++) {
       const row = document.createElement("div");
+      row.id = "row" + y;
       row.className = "row";
       row.width = grid.width;
       for (let x = 0; x < iColumns; x++) {
-        const box = createBox(boxClass);
-        switch (grid.id) {
+        let box = createBox(boxClass);
+        switch (gridClass) {
           case "canvas":
             box.id = "box" + iBoxCounter.toString();
-
-            box.addEventListener("mouseover", changeColor);
-            box.addEventListener("click", changeColor);
-            box.addEventListener("mousedown", onMouseDown);
-            box.addEventListener("mouseup", onMouseUp);
+            if (bAddEventListeners) {
+              box.addEventListener("mouseover", changeColor);
+              box.addEventListener("click", changeColor);
+              box.addEventListener("mousedown", onMouseDown);
+              box.addEventListener("mouseup", onMouseUp);
+              box.setAttribute("paintable", "");
+            }
             break;
           case "palette":
             box.style = "background-color:" + arrColors[iBoxCounter];
             box.addEventListener("click", setColor);
-
             break;
         }
         row.appendChild(box);
@@ -81,11 +129,10 @@ const pixelPainter = ((iWidth, iHeight) => {
       grid.appendChild(row);
     }
     return grid;
-    // pp.appendChild(canvas);
   }
 
   function createBox(boxClass) {
-    const box = document.createElement("span");
+    let box = document.createElement("span");
     box.classList = boxClass;
     return box;
   }
@@ -118,7 +165,7 @@ const pixelPainter = ((iWidth, iHeight) => {
     paintBoxLabel.innerHTML = paintColor;
   }
   function clear() {
-    arrCanvasBoxes = document.querySelectorAll(".box.canvas");
+    arrCanvasBoxes = document.querySelectorAll("span[paintable].box.canvas");
     console.log(arrCanvasBoxes);
     for (let i = 0; i < arrCanvasBoxes.length; i++) {
       arrCanvasBoxes[i].style.backgroundColor = "white";
@@ -129,21 +176,57 @@ const pixelPainter = ((iWidth, iHeight) => {
     // });
   }
   function saveGrid() {
-    const snapshot = {
-      timestamp: Date.now(),
-      canvas: canvas
-    };
+    let snapshot = {};
+    snapshot["timestamp"] = Date.now();
+    const x = cloneGrid(canvas);
+    // snapshot["canvas"] =
+    console.log("canvas:", canvas);
+    console.log("clone:", x);
+    bottomOuterPanel.appendChild(x);
+
     arrMemory.push(snapshot);
+    // bottomOuterPanel.appendChild(snapshot);
     btnLoadLastGrid.disabled = false;
   }
+  /*
+  const mapCopy = (object, callback) => {
+    return Object.keys(object).reduce(function(output, key) {
+      output[key] = callback.call(this, object[key]);
+      return output;
+    }, {});
+  };
+  function shallowCopy(src) {
+    return Object.assign({}, src);
+  }*/
   function loadGrid() {
     if (arrMemory.length > 0) {
-      const snapshot = arrMemory.pop();
-      canvas = snapshot;
+      let snapshot = arrMemory.pop();
+      // canvas = snapshot;
+      rightPanel.removeChild(canvas);
+      rightPanel.appendChild(snapshot);
     }
   }
-  let canvas = createGrid(iWidth, iHeight, "box canvas", "canvas");
-  const colorPalette = createGrid(5, 5, "box paletteBox", "palette");
+  function addBorderTest() {
+    canvas.classList += " borderTest";
+    colorPalette.classList += " borderTest";
+    savePanel.classList += " borderTest";
+    colorBoxPanel.classList += " borderTest";
+    leftPanel.classList += " borderTest";
+    rightPanel.classList += " borderTest";
+    paintBoxRow.classList += " borderTest";
+    topOuterPanel.classList += " borderTest";
+    bottomOuterPanel.classList += " borderTest";
+    pp.classList += " container borderTest";
+  }
+  let canvas = createGrid(
+    iWidth,
+    iHeight,
+    "canvas",
+    "box canvas",
+    "canvas",
+    true
+  );
+  const colorPalette = createGrid(5, 5, "palette", "box paletteBox", "palette");
   const paletteLabel = document.createElement("div");
   paletteLabel.innerHTML = "Color Palette";
   paletteLabel.id = "paletteLabel";
@@ -189,6 +272,10 @@ const pixelPainter = ((iWidth, iHeight) => {
   savePanel.appendChild(btnSave);
   savePanel.appendChild(btnLoadLastGrid);
   rightPanel.appendChild(savePanel);
-  pp.appendChild(leftPanel);
-  pp.appendChild(rightPanel);
+
+  topOuterPanel.appendChild(leftPanel);
+  topOuterPanel.appendChild(rightPanel);
+  pp.appendChild(topOuterPanel);
+  pp.appendChild(bottomOuterPanel);
+  addBorderTest();
 })(35, 20);
