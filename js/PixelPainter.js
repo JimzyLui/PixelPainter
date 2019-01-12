@@ -26,7 +26,11 @@ const pixelPainter = ((iWidth, iHeight) => {
     bPortraitOrientation = true;
   } */
 
-  let color = "black";
+  let objColor = {
+    colorScheme: "Default",
+    colorName: "black",
+    colorValue: "black"
+  };
   let curStampObj = { name: "nostamp", iconClass: "" }; // if no stamp then color
   let stampClass = "";
 
@@ -77,13 +81,159 @@ const pixelPainter = ((iWidth, iHeight) => {
     ["Pink Colors", "HotPink", "#FF69B4"],
     ["Pink Colors", "DeepPink", "#FF1493"],
     ["Pink Colors", "PaleVioletRed", "#DB7093"],
-    ["Pink Colors", "MediumVioletRed", "#C71585"]
+    ["Pink Colors", "MediumVioletRed", "#C71585"],
+    ["Purple Colors", "Lavender", "#E6E6FA"],
+    ["Purple Colors", "Thistle", "#D8BFD8"],
+    ["Purple Colors", "Plum", "#DDA0DD"],
+    ["Purple Colors", "Orchid", "#DA70D6"],
+    ["Purple Colors", "Violet", "#EE82EE"],
+    ["Purple Colors", "Fuchsia", "#FF00FF"],
+    ["Purple Colors", "Magenta", "#FF00FF"],
+    ["Purple Colors", "MediumOrchid", "#BA55D3"],
+    ["Purple Colors", "DarkOrchid", "#9932CC"],
+    ["Purple Colors", "DarkViolet", "#9400D3"],
+    ["Purple Colors", "BlueViolet", "#8A2BE2"],
+    ["Purple Colors", "DarkMagenta", "#8B008B"],
+    ["Purple Colors", "Purple", "#800080"],
+    ["Purple Colors", "MediumPurple", "#9370DB"],
+    ["Purple Colors", "MediumSlateBlue", "#7B68EE"],
+    ["Purple Colors", "SlateBlue", "#6A5ACD"],
+    ["Purple Colors", "DarkSlateBlue", "#483D8B"],
+    ["Purple Colors", "RebeccaPurple", "#663399"],
+    ["Purple Colors", "Indigo", "#4B0082"],
+    ["Red Colors", "LightSalmon", "#FFA07A"],
+    ["Red Colors", "Salmon", "#FA8072"],
+    ["Red Colors", "DarkSalmon", "#E9967A"],
+    ["Red Colors", "LightCoral", "#F08080"],
+    ["Red Colors", "IndianRed", "#CD5C5C"],
+    ["Red Colors", "Crimson", "#DC143C"],
+    ["Red Colors", "Red", "#FF0000"],
+    ["Red Colors", "FireBrick", "#B22222"],
+    ["Red Colors", "DarkRed", "#8B0000"],
+    ["Orange Colors", "Orange", "#FFA500"],
+    ["Orange Colors", "DarkOrange", "#FF8C00"],
+    ["Orange Colors", "Coral", "#FF7F50"],
+    ["Orange Colors", "Tomato", "#FF6347"],
+    ["Orange Colors", "OrangeRed", "#FF4500"],
+    ["Yellow Colors", "Gold", "#FFD700"],
+    ["Yellow Colors", "Yellow", "#FFFF00"],
+    ["Yellow Colors", "LightYellow", "#FFFFE0"],
+    ["Yellow Colors", "LemonChiffon", "#FFFACD"],
+    ["Yellow Colors", "LightGoldenRodYellow", "#FAFAD2"],
+    ["Yellow Colors", "PapayaWhip", "#FFEFD5"],
+    ["Yellow Colors", "Moccasin", "#FFE4B5"],
+    ["Yellow Colors", "PeachPuff", "#FFDAB9"],
+    ["Yellow Colors", "PaleGoldenRod", "#EEE8AA"],
+    ["Yellow Colors", "Khaki", "#F0E68C"],
+    ["Yellow Colors", "DarkKhaki", "#BDB76B"],
+    ["Green Colors", "GreenYellow", "#ADFF2F"],
+    ["Green Colors", "Chartreuse", "#7FFF00"],
+    ["Green Colors", "LawnGreen", "#7CFC00"],
+    ["Green Colors", "Lime", "#00FF00"],
+    ["Green Colors", "LimeGreen", "#32CD32"],
+    ["Green Colors", "PaleGreen", "#98FB98"],
+    ["Green Colors", "LightGreen", "#90EE90"],
+    ["Green Colors", "MediumSpringGreen", "#00FA9A"],
+    ["Green Colors", "SpringGreen", "#00FF7F"],
+    ["Green Colors", "MediumSeaGreen", "#3CB371"],
+    ["Green Colors", "SeaGreen", "#2E8B57"],
+    ["Green Colors", "ForestGreen", "#228B22"],
+    ["Green Colors", "Green", "#008000"],
+    ["Green Colors", "DarkGreen", "#006400"],
+    ["Green Colors", "YellowGreen", "#9ACD32"],
+    ["Green Colors", "OliveDrab", "#6B8E23"],
+    ["Green Colors", "DarkOliveGreen", "#556B2F"],
+    ["Green Colors", "MediumAquaMarine", "#66CDAA"],
+    ["Green Colors", "DarkSeaGreen", "#8FBC8F"],
+    ["Green Colors", "LightSeaGreen", "#20B2AA"],
+    ["Green Colors", "DarkCyan", "#008B8B"],
+    ["Green Colors", "Teal", "#008080"],
+    ["Cyan Colors", "Aqua", "#00FFFF"],
+    ["Cyan Colors", "Cyan", "#00FFFF"],
+    ["Cyan Colors", "LightCyan", "#E0FFFF"],
+    ["Cyan Colors", "PaleTurquoise", "#AFEEEE"],
+    ["Cyan Colors", "Aquamarine", "#7FFFD4"],
+    ["Cyan Colors", "Turquoise", "#40E0D0"],
+    ["Cyan Colors", "MediumTurquoise", "#48D1CC"],
+    ["Cyan Colors", "DarkTurquoise", "#00CED1"],
+    ["Blue Colors", "CadetBlue", "#5F9EA0"],
+    ["Blue Colors", "SteelBlue", "#4682B4"],
+    ["Blue Colors", "LightSteelBlue", "#B0C4DE"],
+    ["Blue Colors", "LightBlue", "#ADD8E6"],
+    ["Blue Colors", "PowderBlue", "#B0E0E6"],
+    ["Blue Colors", "LightSkyBlue", "#87CEFA"],
+    ["Blue Colors", "SkyBlue", "#87CEEB"],
+    ["Blue Colors", "CornflowerBlue", "#6495ED"],
+    ["Blue Colors", "DeepSkyBlue", "#00BFFF"],
+    ["Blue Colors", "DodgerBlue", "#1E90FF"],
+    ["Blue Colors", "RoyalBlue", "#4169E1"],
+    ["Blue Colors", "Blue", "#0000FF"],
+    ["Blue Colors", "MediumBlue", "#0000CD"],
+    ["Blue Colors", "DarkBlue", "#00008B"],
+    ["Blue Colors", "Navy", "#000080"],
+    ["Blue Colors", "MidnightBlue", "#191970"],
+    ["Brown Colors", "Cornsilk", "#FFF8DC"],
+    ["Brown Colors", "BlanchedAlmond", "#FFEBCD"],
+    ["Brown Colors", "Bisque", "#FFE4C4"],
+    ["Brown Colors", "NavajoWhite", "#FFDEAD"],
+    ["Brown Colors", "Wheat", "#F5DEB3"],
+    ["Brown Colors", "BurlyWood", "#DEB887"],
+    ["Brown Colors", "Tan", "#D2B48C"],
+    ["Brown Colors", "RosyBrown", "#BC8F8F"],
+    ["Brown Colors", "SandyBrown", "#F4A460"],
+    ["Brown Colors", "GoldenRod", "#DAA520"],
+    ["Brown Colors", "DarkGoldenRod", "#B8860B"],
+    ["Brown Colors", "Peru", "#CD853F"],
+    ["Brown Colors", "Chocolate", "#D2691E"],
+    ["Brown Colors", "Olive", "#808000"],
+    ["Brown Colors", "SaddleBrown", "#8B4513"],
+    ["Brown Colors", "Sienna", "#A0522D"],
+    ["Brown Colors", "Brown", "#A52A2A"],
+    ["Brown Colors", "Maroon", "#800000"],
+    ["White Colors", "White", "#FFFFFF"],
+    ["White Colors", "Snow", "#FFFAFA"],
+    ["White Colors", "HoneyDew", "#F0FFF0"],
+    ["White Colors", "MintCream", "#F5FFFA"],
+    ["White Colors", "Azure", "#F0FFFF"],
+    ["White Colors", "AliceBlue", "#F0F8FF"],
+    ["White Colors", "GhostWhite", "#F8F8FF"],
+    ["White Colors", "WhiteSmoke", "#F5F5F5"],
+    ["White Colors", "SeaShell", "#FFF5EE"],
+    ["White Colors", "Beige", "#F5F5DC"],
+    ["White Colors", "OldLace", "#FDF5E6"],
+    ["White Colors", "FloralWhite", "#FFFAF0"],
+    ["White Colors", "Ivory", "#FFFFF0"],
+    ["White Colors", "AntiqueWhite", "#FAEBD7"],
+    ["White Colors", "Linen", "#FAF0E6"],
+    ["White Colors", "LavenderBlush", "#FFF0F5"],
+    ["White Colors", "MistyRose", "#FFE4E1"],
+    ["Grey Colors", "Gainsboro", "#DCDCDC"],
+    ["Grey Colors", "LightGray", "#D3D3D3"],
+    ["Grey Colors", "Silver", "#C0C0C0"],
+    ["Grey Colors", "DarkGray", "#A9A9A9"],
+    ["Grey Colors", "DimGray", "#696969"],
+    ["Grey Colors", "Gray", "#808080"],
+    ["Grey Colors", "LightSlateGray", "#778899"],
+    ["Grey Colors", "SlateGray", "#708090"],
+    ["Grey Colors", "DarkSlateGray", "#2F4F4F"],
+    ["Grey Colors", "Black", "#000000"]
   ];
 
   let objColorScheme = { name: "default", colors: arrColors };
   const arrColorSchemes = [
     { name: "default", colors: arrColors },
-    { name: "RGB", colors: arrColorsRGB }
+    { name: "RGB", colors: arrColorsRGB },
+    { name: "Pink Colors", colors: arrColorGroups },
+    { name: "Purple Colors", colors: arrColorGroups },
+    { name: "Red Colors", colors: arrColorGroups },
+    { name: "Orange Colors", colors: arrColorGroups },
+    { name: "Yellow Colors", colors: arrColorGroups },
+    { name: "Green Colors", colors: arrColorGroups },
+    { name: "Cyan Colors", colors: arrColorGroups },
+    { name: "Blue Colors", colors: arrColorGroups },
+    { name: "Brown Colors", colors: arrColorGroups },
+    { name: "White Colors", colors: arrColorGroups },
+    { name: "Grey Colors", colors: arrColorGroups }
   ];
 
   /* define stamps */
@@ -361,14 +511,14 @@ const pixelPainter = ((iWidth, iHeight) => {
   /* Applies color to boxes */
   const applyColorEvent = evt => {
     if (bMouseReleased === false || evt.type == "click") {
-      if (curStampObj.name === "nostamp") {
-        applyColor(evt.target);
-      }
+      // if (curStampObj.name === "nostamp") {
+      applyColor(evt.target);
+      // }
     }
   };
   const applyColor = box => {
     // console.log("box.id: " + box.id + " " + color);
-    box.style.backgroundColor = color;
+    box.style.backgroundColor = objColor.colorValue;
   };
 
   /* Sets the color scheme to fill the color palette */
@@ -377,6 +527,24 @@ const pixelPainter = ((iWidth, iHeight) => {
       objColorScheme = arrColorSchemes.find(
         x => x.name === colorSchemeDropDown.value
       );
+      const colorName = objColorScheme.name;
+      console.log(colorName);
+      const arrFiltered = [];
+      if (objColorScheme.name.includes("Color")) {
+        arrFiltered.push(
+          objColorScheme.colors
+            .filter(x => x[0] == colorName)
+            .map(x => {
+              x.shift();
+              return x;
+            })
+        );
+      }
+      const objFiltered = {};
+      objFiltered["name"] = colorName;
+      objFiltered["colors"] = arrFiltered[0];
+      objColorScheme = objFiltered;
+      console.log(objColorScheme);
       changeColorPalette();
     }
     console.log("colorScheme: " + objColorScheme.name);
@@ -389,11 +557,11 @@ const pixelPainter = ((iWidth, iHeight) => {
     arrColorPalette.push(objColorScheme.colors);
     const arrColorBoxes = document.querySelectorAll(".colorPaletteBox");
     const changeColor = (el, index, array) => {
-      console.log(array);
+      // console.log(array);
       const arr = [];
       arr.push(...arrColorPalette);
-      console.log(arr[0][index]);
-      console.log("a[" + index + "] = " + el.innerHTML);
+      // console.log(arr[0][index]);
+      // console.log("a[" + index + "] = " + el.innerHTML);
       if (index < arr[0].length) {
         const colorName = arr[0][index][0];
         const colorValue = arr[0][index][1];
@@ -412,12 +580,18 @@ const pixelPainter = ((iWidth, iHeight) => {
   /* Sets the color being used */
   const setColor = evt => {
     if (evt.target.id === "colorPicker") {
-      color = evt.target.value;
+      objColor.colorScheme = "Custom";
+      objColor.colorName = evt.target.value;
+      objColor.colorValue = evt.target.value;
     } else {
-      color = evt.target.style.backgroundColor;
+      objColor.colorScheme = objColorScheme.name;
+      objColor.colorName = evt.target.title;
+      objColor.colorValue = evt.target.style.backgroundColor;
     }
-    colorStatusBox.style.backgroundColor = color;
-    colorNameLabel.innerHTML = color;
+    console.log(objColor);
+    colorStatusBox.style.backgroundColor = objColor.colorValue;
+    colorNameLabel.innerHTML = objColor.colorName;
+    schemeStatusLabel.innerHTML = objColor.colorScheme;
   };
 
   /* Sets the stamp being used */
@@ -427,7 +601,7 @@ const pixelPainter = ((iWidth, iHeight) => {
       stampStatusBox.removeChild(stampStatusBox.firstChild);
     }
     stampClass = evt.target.classList;
-    stampStatusBox.style.color = color;
+    stampStatusBox.style.color = objColor.colorValue;
     const icon = document.createElement("i");
     icon.classList = stampClass;
     stampStatusBox.appendChild(icon);
@@ -438,11 +612,11 @@ const pixelPainter = ((iWidth, iHeight) => {
   };
 
   /* Sets the shape being used */
-  const setShape = evt => {
+  /*   const setShape = evt => {
     color = evt.target.style.backgroundColor;
     paintBox.style.backgroundColor = color;
     // paintBoxLabel.innerHTML = color;
-  };
+  }; */
 
   const toggleMouseClick = e => {
     bMouseClicked = !bMouseClicked;
@@ -455,8 +629,8 @@ const pixelPainter = ((iWidth, iHeight) => {
   /* Changes the color being used to white */
   const erase = () => {
     color = "white";
-    paintBox.style.backgroundColor = color;
-    paintBoxLabel.innerHTML = color;
+    colorStatusBox.style.backgroundColor = color;
+    colorNameLabel.innerHTML = color;
   };
 
   /* Clears the canvas by setting all boxes to white */
@@ -586,17 +760,24 @@ const pixelPainter = ((iWidth, iHeight) => {
   const colorStatusLabel = document.createElement("label");
   colorStatusLabel.id = "colorStatusLabel";
   colorStatusLabel.for = "colorNameLabel";
-  colorStatusLabel.innerHTML = "Currently Using:";
+  colorStatusLabel.innerHTML = "Using:";
   statusPanel.appendChild(colorStatusLabel);
+
+  const schemeStatusLabel = document.createElement("label");
+  schemeStatusLabel.id = "schemeStatusLabel";
+  schemeStatusLabel.for = "colorStatusBox";
+  schemeStatusLabel.innerHTML = objColor.colorScheme;
+  statusPanel.appendChild(schemeStatusLabel);
 
   const colorNameLabel = document.createElement("label");
   colorNameLabel.id = "colorNameLabel";
   colorNameLabel.for = "colorStatusBox";
-  colorNameLabel.innerHTML = color;
+  colorNameLabel.innerHTML = objColor.colorName;
   statusPanel.appendChild(colorNameLabel);
 
   const colorStatusBox = createBox("box colorPaletteBox");
   colorStatusBox.id = "colorStatusBox";
+  colorStatusBox.style.backgroundColor = objColor.colorValue;
   statusPanel.appendChild(colorStatusBox);
 
   const stampStatusBox = createBox("box stampPaletteBox");

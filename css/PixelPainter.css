@@ -25,7 +25,7 @@ label {
 #topOuterPanel {
   display: flex;
   flex-flow: row nowrap;
-  border: 3px solid blue !important;
+  /* border: 1px solid blue !important; */
 }
 
 #bottomOuterPanel {
@@ -155,13 +155,17 @@ button:enabled {
   margin: 2px;
 }
 #colorStatusLabel {
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
 }
 #colorNameLabel {
-  border: 1px solid green;
+  /* border: 1px solid green; */
 }
 #colorStatusBox {
-  border: 1px solid purple;
+  /* border: 1px solid purple; */
+}
+#schemeStatusLabel:after {
+  content: ": ";
+  margin-right: 1px;
 }
 #paintBoxRow {
   /* border: 1px solid red; */
