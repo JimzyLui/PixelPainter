@@ -1,12 +1,25 @@
 * {
   box-sizing: border-box;
 }
+.container {
+  margin: auto auto;
+}
+/* .transparent { */
+/* background-color: none; */
+/* background-color: rgba(255, 255, 255, 0.7); */
+/* } */
+/* sizing starts with xx-small */
 h1 {
   text-align: center;
+  font-size: 30;
+}
+label {
+  font-size: 8;
 }
 #pixelPainter {
   display: flex;
   flex-flow: column nowrap;
+  margin: auto auto;
 }
 
 #topOuterPanel {
@@ -19,26 +32,32 @@ h1 {
   display: flex;
   flex-flow: row nowrap;
   /* align-content: left; */
-  padding: 5px;
+  padding: 2px;
   /* align-items: flex-start; */
   align-self: flex-start;
 }
 #leftPanel {
   /* border: 1px solid orange; */
-  margin: 10px auto;
+  /* margin: 5px auto; */
   display: flex;
   flex-flow: column wrap;
   /* justify-content: space-between; */
   justify-content: flex-start;
-  padding: 5px;
+  padding: 2px;
   align-items: center;
+}
+#colorPalette {
+  border: thin solid black;
+}
+#stampPalette {
+  border: thin solid black;
 }
 #rightPanel {
   /* border: 1px solid orange; */
   display: flex;
   flex-flow: column wrap;
   justify-content: flex-start;
-  padding: 5px;
+  padding: 2px;
   align-items: center;
 }
 #savePanel {
@@ -51,7 +70,7 @@ h1 {
 .canvas {
   display: flex;
   flex-flow: column wrap;
-  border: 2px solid black;
+  border: thin solid black;
   /* width: 300px; */
   /* height: 300px; */
   margin: auto;
@@ -60,25 +79,52 @@ h1 {
 }
 
 .box {
-  width: 9px;
-  height: 9px;
-  border: thin solid lightgray;
+  width: 4px;
+  height: 4px;
+  border: thin solid #f2f2f2;
   /* background-color: white; */
   justify-content: flex-start;
   align-content: flex-start;
   flex: 0 2 auto;
 }
-.saved .box {
+/* .saved .box {
   width: 30%;
   height: 30%;
-}
+} */
 
-.paletteBox {
-  width: 20px;
-  height: 20px;
+.canvasBox {
+  width: 4px;
+  height: 4px;
+  /* border: 1px solid black; */
+}
+.colorPaletteBox {
+  width: 10px;
+  height: 10px;
   /* border: 1px solid black; */
 }
 
+.stampPaletteBox {
+  width: 10px;
+  height: 10px;
+  /* border: 1px solid black; */
+}
+
+i.fa,
+i.fas,
+i.far {
+  font-size: 8px;
+}
+.selectable:hover,
+.selectable::selection,
+button:hover {
+  border: 1px solid red !important;
+}
+
+/* #stamps.row.box > i.fa,
+#stamps.row.box > i.fas,
+#stamps.row.box > i.far {
+  font-size: 8px;
+} */
 .row {
   display: flex;
   flex-flow: row nowrap;
@@ -86,11 +132,11 @@ h1 {
   /* width: auto; */
 }
 button {
-  /* width: 50px; */
+  /* width: 100px; */
   /* height: 30px; */
   justify-items: center;
   text-align: center;
-  margin: 5px;
+  margin: 2px;
   border-radius: 0.6em;
 }
 button:disabled {
@@ -100,13 +146,22 @@ button:disabled {
 button:enabled {
   display: block;
 }
-#colorBoxPanel {
+#statusPanel {
   /* border: 1px solid black; */
   display: flex;
-  flex-flow: column nowrap;
+  flex-flow: row nowrap;
   justify-content: space-between;
   align-self: stretch;
-  margin: 5px;
+  margin: 2px;
+}
+#colorStatusLabel {
+  border: 1px solid blue;
+}
+#colorNameLabel {
+  border: 1px solid green;
+}
+#colorStatusBox {
+  border: 1px solid purple;
 }
 #paintBoxRow {
   /* border: 1px solid red; */
@@ -115,19 +170,184 @@ button:enabled {
   justify-content: space-around;
   align-self: stretch;
   align-items: center;
-  margin: 5px;
+  margin: 2px;
 }
 #paintBox {
   background-color: black;
-  border: 1px solid black;
+  border: thin solid black;
 }
-#paletteLabel {
+#leftPanelLabel {
   font-weight: bold;
+  font-size: 10px;
 }
-#palette {
-  border: 1px solid black;
+#colors {
+  border: thin solid black;
+}
+#colorSchemeDropDown {
+  font-size: 7px;
+  height: 12px;
+}
+#colorPicker {
+  border: thin solid black;
+  margin-bottom: 4px;
+  padding: 0;
+  height: 12px;
+  width: 55px;
+}
+#shapes {
+  border: thin solid black;
+}
+#stamps {
+  border: thin solid black;
+  margin-bottom: 4px;
+  padding-top: 1px;
+}
+#pWindowSize {
+  align-self: center;
+  font-size: 0.4em;
+  color: blue;
 }
 
+#colors {
+  margin: 0.2em;
+}
+#shapes {
+  margin: 0.2em;
+}
+#buttonPanel {
+  display: flex;
+  flex-flow: row nowrap;
+}
+button {
+  /* width: 30px; */
+  max-width: 60px;
+  height: 12px;
+  font-size: 0.3em;
+  margin: 0.2em;
+  padding: 0.2em;
+}
+#colorBoxLabel {
+  white-space: nowrap;
+  font-size: 0.5em;
+  margin-top: 0.5em;
+  margin-bottom: 0.2em;
+  border: thin solid black;
+}
+#paintBoxRow {
+  margin: 2px;
+}
+#paintBoxLabel {
+  font-size: 0.4em;
+}
+/* #stamps.row.box > i.fa,
+#stamps.row.box > i.fas,
+#stamps.row.box > i.far {
+  font-size: 1em;
+} */
+
+/* mobile */
+/* @media screen and (max-width: 400px) { */
+
+/* @media only screen and (min-width: 480px) and (max-width: 767px) { */
+
+@media only screen and (min-width: 247px) and (max-width: 767px) {
+  body {
+    min-width: 480px;
+  }
+  i {
+    background-position: -50px 0px;
+    /* height: 10px; */
+    /* width: 10px; */
+    height: 6px;
+    width: 6px;
+  }
+  h1 {
+    font-size: 80%;
+  }
+  #leftPane {
+    margin: 0;
+    padding: 1px 1px;
+  }
+
+  #leftPanelLabel {
+    font-size: 12px;
+  }
+  .box {
+    width: 5px;
+    height: 5px;
+    border-width: thin;
+  }
+  .colorPaletteBox {
+    width: 7px;
+    height: 7px;
+    /* border: 1px solid black; */
+  }
+
+  .canvasBox {
+    width: 4px;
+    height: 4px;
+    /* border: 1px solid black; */
+  }
+  .colorPaletteBox {
+    width: 10px;
+    height: 10px;
+    /* border: 1px solid black; */
+  }
+
+  .stampPaletteBox {
+    width: 10px;
+    height: 10px;
+    /* border: 1px solid black; */
+  }
+
+  #colorPicker {
+    margin: 0.2em;
+    padding: 0;
+    width: 50px;
+    height: 12px;
+  }
+  #colors {
+    margin: 0.2em;
+  }
+  #shapes {
+    margin: 0.2em;
+  }
+
+  button {
+    /* width: 30px; */
+    max-width: 60px;
+    height: 12px;
+    font-size: 0.3em;
+    margin: 0.2em;
+    padding: 0.2em;
+  }
+  #colorBoxLabel {
+    white-space: nowrap;
+    font-size: 0.5em;
+    margin-top: 0.5em;
+    margin-bottom: 0.2em;
+    border: thin solid black;
+  }
+  #paintBoxRow {
+    margin: 2px;
+  }
+  #paintBoxLabel {
+    font-size: 0.4em;
+  }
+  #leftPanelLabel {
+    font-size: 0.5em;
+  }
+}
+.borderTest {
+  border: 1px solid orangered;
+}
+
+/* #icon {
+  background: url(../images/sprites.png);
+  background-position: 0 0;
+  height: 20px;
+  width: 20px;
+} */
 /* @media screen and (min-width: 600px) {
   .box {
     width: 20px;
@@ -135,8 +355,20 @@ button:enabled {
   }
 } */
 
-/* pad */
-@media screen and (max-width: 600px) {
+/* tablets */
+/* @media screen and (max-width: 600px) { */
+@media only screen and (min-width: 768px) and (max-width: 959px) {
+  body {
+    min-width: 768px;
+  }
+  i {
+    background-position: -32px 0px;
+    /* height: 12px; */
+    /* width: 12px; */
+    height: 9px;
+    width: 9px;
+  }
+
   h1 {
     font-size: 85%;
   }
@@ -154,11 +386,19 @@ button:enabled {
     height: 10px;
     /* border: 1px solid black; */
   }
-  #palette {
+  #colors {
     margin: 0.2em;
   }
+  #stamps {
+    margin: 0.2em;
+  }
+  #shapes {
+    margin: 0.2em;
+  }
+
   button {
-    width: 30px;
+    /* width: 30px; */
+    max-width: 60px;
     height: 20px;
     font-size: 0.3em;
     margin: 0.2em;
@@ -177,57 +417,184 @@ button:enabled {
   #paintBoxLabel {
     font-size: 0.4em;
   }
-  #paletteLabel {
+  #leftPanelLabel {
     font-size: 0.5em;
+  }
+
+  .canvasBox {
+    width: 4px;
+    height: 4px;
+    /* border: 1px solid black; */
+  }
+  .colorPaletteBox {
+    width: 10px;
+    height: 10px;
+    /* border: 1px solid black; */
+  }
+
+  .stampPaletteBox {
+    width: 10px;
+    height: 10px;
+    /* border: 1px solid black; */
   }
 }
 
-/* mobile */
-@media screen and (max-width: 400px) {
-  h1 {
-    font-size: 80%;
+/* desktop */
+/* @media only screen and (min-width: 960px) and (max-width: 1140px) { */
+@media only screen and (min-width: 960px) {
+  body {
+    min-width: 960px;
   }
-  #leftPane {
-    margin: 0;
-    padding: 1px 1px;
+
+  span i {
+    /* background-position: -20px 0; */
+    /* width: 10px; */
+    /* height: 1px; */
+    color: red;
   }
+  .fa {
+    font-size: 0.8em;
+  }
+  #pixelPainter {
+    display: flex;
+    flex-flow: column nowrap;
+  }
+
+  #topOuterPanel {
+    display: flex;
+    flex-flow: row nowrap;
+    border: 3px solid blue !important;
+  }
+
+  #bottomOuterPanel {
+    display: flex;
+    flex-flow: row nowrap;
+    /* align-content: left; */
+    padding: 5px;
+    /* align-items: flex-start; */
+    align-self: flex-start;
+  }
+  #leftPanel {
+    /* border: 1px solid orange; */
+    margin: 10px auto;
+    display: flex;
+    flex-flow: column wrap;
+    /* justify-content: space-between; */
+    justify-content: flex-start;
+    padding: 5px;
+    align-items: center;
+  }
+  #rightPanel {
+    /* border: 1px solid orange; */
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: flex-start;
+    padding: 5px;
+    align-items: center;
+  }
+  #savePanel {
+    /* border: 1px solid orange; */
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+  }
+  /* #canvas, */
+  .canvas {
+    display: flex;
+    flex-flow: column wrap;
+    border: 2px solid black;
+    /* width: 300px; */
+    /* height: 300px; */
+    margin: auto;
+    background-color: white;
+    /* border: 2px solid blue; */
+  }
+
   .box {
-    width: 5px;
-    height: 5px;
-    border-width: thin;
+    width: 9px;
+    height: 9px;
+    border: thin solid lightgray;
+    /* background-color: white; */
+    justify-content: flex-start;
+    align-content: flex-start;
+    flex: 0 2 auto;
   }
+  .saved .box {
+    width: 30%;
+    height: 30%;
+  }
+
   .paletteBox {
-    width: 7px;
-    height: 7px;
+    width: 20px;
+    height: 20px;
     /* border: 1px solid black; */
   }
-  #palette {
-    margin: 0.2em;
+
+  .canvasBox {
+    width: 4px;
+    height: 4px;
+    /* border: 1px solid black; */
+  }
+  .colorPaletteBox {
+    width: 10px;
+    height: 10px;
+    /* border: 1px solid black; */
+  }
+
+  .stampPaletteBox {
+    width: 10px;
+    height: 10px;
+    /* border: 1px solid black; */
+  }
+  .row {
+    display: flex;
+    flex-flow: row nowrap;
+    /* border: thin solid green; */
+    /* width: auto; */
   }
   button {
-    width: 30px;
-    height: 15px;
-    font-size: 0.3em;
-    margin: 0.2em;
-    padding: 0.2em;
+    /* width: 50px; */
+    /* height: 30px; */
+    justify-items: center;
+    text-align: center;
+    margin: 5px;
+    border-radius: 0.6em;
   }
-  #colorBoxLabel {
-    white-space: nowrap;
-    font-size: 0.5em;
-    margin-top: 0.5em;
-    margin-bottom: 0.2em;
-    border: thin solid black;
+  button:disabled {
+    background-color: gray;
+    display: none;
+  }
+  button:enabled {
+    display: block;
+  }
+  #statusPanel {
+    /* border: 1px solid black; */
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    align-self: stretch;
+    margin: 5px;
   }
   #paintBoxRow {
-    margin: 2px;
+    /* border: 1px solid red; */
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    align-self: stretch;
+    align-items: center;
+    margin: 5px;
   }
-  #paintBoxLabel {
-    font-size: 0.4em;
+  #paintBox {
+    background-color: black;
+    border: 1px solid black;
   }
-  #paletteLabel {
-    font-size: 0.5em;
+  #leftPanelLabel {
+    font-weight: bold;
   }
-}
-.borderTest {
-  border: 1px solid orangered;
+  #colors {
+    border: 1px solid black;
+  }
+  #shapes {
+    border: 1px solid black;
+  }
 }
